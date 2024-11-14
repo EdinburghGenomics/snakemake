@@ -7,7 +7,6 @@ import subprocess
 import shutil
 import os
 import hashlib
-from distutils.version import LooseVersion
 
 import snakemake
 from snakemake.deployment.conda import Conda
@@ -175,12 +174,12 @@ class Singularity:
                 )
             if v.startswith("apptainer"):
                 v = v.rsplit(" ", 1)[-1]
-                if not LooseVersion(v) >= LooseVersion("1.0.0"):
+                if not v >= "1.0.0":
                     raise WorkflowError("Minimum apptainer version is 1.0.0.")
             else:
                 v = v.rsplit(" ", 1)[-1]
                 if v.startswith("v"):
                     v = v[1:]
-                if not LooseVersion(v) >= LooseVersion("2.4.1"):
+                if not v >= "2.4.1":
                     raise WorkflowError("Minimum singularity version is 2.4.1.")
             self._version = v

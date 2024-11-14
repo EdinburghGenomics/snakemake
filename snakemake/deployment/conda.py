@@ -18,7 +18,6 @@ from urllib.request import urlopen
 from urllib.error import URLError
 import hashlib
 import shutil
-from distutils.version import StrictVersion
 import json
 from glob import glob
 import tarfile
@@ -763,14 +762,14 @@ class Conda:
         version = shell.check_output(
             self._get_cmd("conda --version"), stderr=subprocess.PIPE, text=True
         )
-        version_matches = re.findall("\d+.\d+.\d+", version)
+        version_matches = re.findall(r"\d+.\d+.\d+", version)
         if len(version_matches) != 1:
             raise WorkflowError(
                 f"Unable to determine conda version. 'conda --version' returned {version}"
             )
         else:
             version = version_matches[0]
-        if StrictVersion(version) < StrictVersion("4.2"):
+        if version < "4.2":
             raise CreateCondaEnvironmentException(
                 "Conda must be version 4.2 or later, found version {}.".format(version)
             )
