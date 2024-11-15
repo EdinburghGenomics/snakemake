@@ -1466,7 +1466,7 @@ def get_argument_parser(profile=None):
     try:
         import pulp
 
-        lp_solvers = pulp.list_solvers(onlyAvailable=True)
+        lp_solvers = pulp.listSolvers(onlyAvailable=True)
     except ImportError:
         # Dummy list for the case that pulp is not available
         # This only happend when building docs.
